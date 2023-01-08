@@ -48,24 +48,6 @@ public class JdbcMenuItemsRepository implements MenuItemsRepository {
     }
 
     @Override
-    public List<MenuItems> findAll(Integer price, String description) {
-        return null;
-    }
-
-    @Override
-    public List<MenuItems> findAll(Integer price) {
-        return jdbcTemplate.query(
-                "select * from menuItems where price = ?",
-                this::mapRow
-        );
-    }
-
-    @Override
-    public List<MenuItems> findPaginated(Integer price, String description, Integer page, Integer size) {
-        return getMenuItems();
-    }
-
-    @Override
     public void save(MenuItems menuItem) {
         transactionTemplate.execute(status -> {
             KeyHolder key = new GeneratedKeyHolder();
@@ -120,5 +102,23 @@ public class JdbcMenuItemsRepository implements MenuItemsRepository {
                 rs.getString("description"),
                 rs.getInt("price")
         );
+    }
+
+    @Override
+    public List<MenuItems> findAll(Integer price, String description) {
+        return null;
+    }
+
+    @Override
+    public List<MenuItems> findAll(Integer price) {
+        return jdbcTemplate.query(
+                "select * from menuItems where price = ?",
+                this::mapRow
+        );
+    }
+
+    @Override
+    public List<MenuItems> findPaginated(Integer price, String description, Integer page, Integer size) {
+        return getMenuItems();
     }
 }
