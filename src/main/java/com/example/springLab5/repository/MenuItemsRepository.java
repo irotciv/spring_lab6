@@ -9,7 +9,6 @@ public interface MenuItemsRepository {
     Optional<MenuItems> findById(Long id);
     List<MenuItems> getMenuItems();
     List<MenuItems> findAll(Integer price, String description);
-    List<MenuItems> findAll(Integer price);
     List<MenuItems> findPaginated(Integer price, String description, Integer page, Integer size);
     void save(MenuItems menuItem);
     void update(MenuItems menuItem);

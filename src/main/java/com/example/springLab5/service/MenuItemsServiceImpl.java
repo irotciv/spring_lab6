@@ -49,7 +49,7 @@ public class MenuItemsServiceImpl implements MenuItemsService {
 
     @Override
     public List<MenuItems> findAll(Integer price, String description) {
-        return jdbcMenuItemsRepository.findAll(price);
+        return jdbcMenuItemsRepository.findAll(price, description);
     }
 
     @Override

@@ -26,6 +26,12 @@ public class FakeMenuItemsRepository implements MenuItemsRepository {
         return menuItems.stream().filter(menuItem -> id.equals(menuItem.getId())).findAny();
     }
 
+
+    @Override
+    public List<MenuItems> getMenuItems() {
+        return menuItems;
+    }
+
     @Override
     public List<MenuItems> findAll(Integer price, String description) {
         List<MenuItems> menuItems = new ArrayList<>();
@@ -44,11 +50,6 @@ public class FakeMenuItemsRepository implements MenuItemsRepository {
         if (price == null && description == null)
             return getMenuItems();
         return menuItems;
-    }
-
-    @Override
-    public List<MenuItems> findAll(Integer price) {
-        return null;
     }
 
     @Override
@@ -80,10 +81,5 @@ public class FakeMenuItemsRepository implements MenuItemsRepository {
     @Override
     public boolean delete(MenuItems menuItem) {
         return menuItems.remove(menuItem);
-    }
-
-    @Override
-    public List<MenuItems> getMenuItems() {
-        return menuItems;
     }
 }

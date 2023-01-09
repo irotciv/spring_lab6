@@ -48,6 +48,34 @@ public class JdbcMenuItemsRepository implements MenuItemsRepository {
     }
 
     @Override
+    public List<MenuItems> findAll(Integer price, String description) {
+        String statement = "select * from menu_items where price = ? and description = ?";
+        if (price == null) {
+            statement = statement.replace("price = ?", "true");
+        } else {
+            statement = statement.replace("price = ?", "price = " + price);
+        }
+        if (description == null) {
+            statement = statement.replace("description = ?", "true");
+        } else {
+            statement = statement.replace("description = ?", "description = " + description);
+        }
+        return jdbcTemplate.query(statement, this::mapRow);
+    }
+
+    @Override
+    public List<MenuItems> findPaginated(Integer price, String description, Integer page, Integer size) {
+        List<MenuItems> menuItems = findAll(price, description);
+        int startIndex = page * size;
+        int endIndex = page * size + size;
+        if (startIndex > menuItems.size() || endIndex > menuItems.size()) {
+            startIndex = Math.min(startIndex, menuItems.size());
+            endIndex = menuItems.size();
+        }
+        return menuItems.subList(startIndex, endIndex);
+    }
+
+    @Override
     public void save(MenuItems menuItem) {
         transactionTemplate.execute(status -> {
             KeyHolder key = new GeneratedKeyHolder();
@@ -102,23 +130,5 @@ public class JdbcMenuItemsRepository implements MenuItemsRepository {
                 rs.getString("description"),
                 rs.getInt("price")
         );
-    }
-
-    @Override
-    public List<MenuItems> findAll(Integer price, String description) {
-        return null;
-    }
-
-    @Override
-    public List<MenuItems> findAll(Integer price) {
-        return jdbcTemplate.query(
-                "select * from menuItems where price = ?",
-                this::mapRow
-        );
-    }
-
-    @Override
-    public List<MenuItems> findPaginated(Integer price, String description, Integer page, Integer size) {
-        return getMenuItems();
     }
 }
