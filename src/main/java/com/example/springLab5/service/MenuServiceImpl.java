@@ -9,16 +9,16 @@ import java.util.List;
 
 @Service
 public class MenuServiceImpl implements MenuService {
-    private final MenuRepository jdbcMenuRepository;
+    private final MenuRepository menuRepository;
 
     @Autowired
-    public MenuServiceImpl(MenuRepository jdbcMenuRepository) {
-        this.jdbcMenuRepository = jdbcMenuRepository;
+    public MenuServiceImpl(MenuRepository MenuRepository) {
+        this.menuRepository = MenuRepository;
     }
 
     @Override
     public List<MenuItems> getMenu() {
-        return jdbcMenuRepository.getMenu();
+        return menuRepository.getMenu();
     }
 
 }

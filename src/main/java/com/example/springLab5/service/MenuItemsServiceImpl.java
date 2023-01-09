@@ -10,50 +10,50 @@ import java.util.List;
 
 @Service
 public class MenuItemsServiceImpl implements MenuItemsService {
-    private final MenuItemsRepository jdbcMenuItemsRepository;
+    private final MenuItemsRepository menuItemsRepository;
 
     @Autowired
-    public MenuItemsServiceImpl(MenuItemsRepository jdbcMenuItemsRepository) {
-        this.jdbcMenuItemsRepository = jdbcMenuItemsRepository;
+    public MenuItemsServiceImpl(MenuItemsRepository menuItemsRepository) {
+        this.menuItemsRepository = menuItemsRepository;
     }
 
     @Override
     public MenuItems getMenuItemById(Long id) {
-        return jdbcMenuItemsRepository.findById(id).orElse(null);
+        return menuItemsRepository.findById(id).orElse(null);
     }
 
     @Transactional
     @Override
     public MenuItems saveMenuItem(MenuItems menuItem) {
-        jdbcMenuItemsRepository.save(menuItem);
+        menuItemsRepository.save(menuItem);
         return menuItem;
     }
 
     @Transactional
     @Override
     public MenuItems updateMenuItem(MenuItems oldMenuItem, MenuItems menuItem) {
-        jdbcMenuItemsRepository.update(menuItem);
+        menuItemsRepository.update(menuItem);
         return menuItem;
     }
 
     @Transactional
     @Override
     public boolean deleteMenuItem(MenuItems menuItem) {
-        return jdbcMenuItemsRepository.delete(menuItem);
+        return menuItemsRepository.delete(menuItem);
     }
 
     @Override
     public List<MenuItems> getMenuItems() {
-        return jdbcMenuItemsRepository.getMenuItems();
+        return menuItemsRepository.getMenuItems();
     }
 
     @Override
     public List<MenuItems> findAll(Integer price, String description) {
-        return jdbcMenuItemsRepository.findAll(price, description);
+        return menuItemsRepository.findAll(price, description);
     }
 
     @Override
     public List<MenuItems> findPaginated(Integer price, String description, Integer page, Integer size) {
-        return jdbcMenuItemsRepository.findPaginated(price, description, page, size);
+        return menuItemsRepository.findPaginated(price, description, page, size);
     }
 }
