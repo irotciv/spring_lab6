@@ -22,7 +22,7 @@ import java.util.List;
 @OpenAPIDefinition(
         info = @Info(
                 title = "OpenAPI Documentation",
-                description = "Documentation of RESTful webservice in Lab4",
+                description = "Documentation of RESTful webservice in Lab5",
                 version = "v.1.0.0"
         )
 )
